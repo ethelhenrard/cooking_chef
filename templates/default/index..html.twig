@@ -1,5 +1,36 @@
 {% extends "base.html.twig" %}
 
+{% block header %}
+	<header class="header-top header-home">
+
+			{% include 'default/_menu.html.twig' %}
+
+		<div class="overlay">
+			<div class="container">
+				<div class="logo-home">
+					<img src="{{ asset('build/images/logo.png') }}" alt="Cooking Chef">
+				</div>
+				<form>
+					<input type="text" placeholder="Recette">
+					<select>
+						<option disabled selected>Catégorie</option>
+						<option>Entrée</option>
+						<option>Plat</option>
+						<option>Dessert</option>
+					</select>
+					<input type="submit" value="Rechercher">
+				</form>
+				<p>Cooking chef est le site internet pour Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+					Veritatis fugit, quae veniam culpa nam harum sed qui, libero obcaecati enim praesentium est id
+					consequatur voluptatem doloribus perspiciatis saepe ratione at!</p>
+			</div>
+
+		</div>
+
+	</header>
+{% endblock %}
+
+
 {% block body %}
 
 	<main class="container container-home">
@@ -14,14 +45,18 @@
 			{% for recipe in recipes %}
 				<div class="col-md-4">
 					<article>
-						{#todo slug avec le nom de la recipe au lieu de l'ID#}
 						<a href="{{ path('recipe_show', {'id': recipe.id}) }}">
 							<img src="{{ asset('uploads/' ~ recipe.picture) }}" alt="{{ recipe.title }}" class="img-responsive">
 						</a>
 						<h2><a href="{{ path('recipe_show', {'id': recipe.id}) }}">{{ recipe.title }}</a></h2>
 						<footer>
 							<div class="label"><a href="#" class="like"><i class="fa fa-heart"></i></a> 12</div>
-							<div class="label"><i class="fa fa-cutlery"></i> {{ recipe.category.label }}</div>
+							<div class="label">
+								<i class="fa fa-cutlery"></i>
+								<a href="{{ path('category_show', {'slug': recipe.category.slug}) }}">
+									{{ recipe.category.label }}
+								</a>
+							</div>
 							<div class="label"><i class="fa fa-user"></i> François P.</div>
 						</footer>
 					</article>
@@ -33,3 +68,4 @@
 	</main>
 
 {% endblock %}
+

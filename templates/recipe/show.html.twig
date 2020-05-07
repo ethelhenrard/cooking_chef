@@ -2,6 +2,9 @@
 
 {% block title %}{{ parent () }} - {{recipe.title}}{% endblock %}
 
+{% block headerImage %}{{ asset('uploads/' ~ recipe.picture) }}{% endblock %}
+{% block headerTitle %}{{ recipe.title }}{% endblock %}
+
 {% block body %}
     <main class="container">
 
@@ -13,22 +16,21 @@
                 <div class="label"><i class="fa fa-user"></i> Etienne H.</div>
             </div>
             <div class="col-md-4">
-
                 <ul>
-                    <li>
-                        {% for tag in recipe.tags %}
-                            {{ tag.label }}
+                        {% for tag in recipe.tags%}
+                    <li> {{ tag.label }}</li>
                         {% endfor %}
-                    </li>
                 </ul>
                 <ul>
                     {#todo ajouter methodes dans recipe pour retourner les temps formatés #}
-                    <li>Temps de préparation : {{ recipe.preparationTime | date("H:i:s") }}</li>
-                    <li>Temps de cuisson : {{ recipe.bakingTime | date ("H:i:s") }}</li>
+                    <li>Temps de préparation : {{ recipe.preparationTimeFormatted}}</li>
+                    <li>Temps de cuisson : {{ recipe.bakingTimeFormatted }}</li>
                 </ul>
-                <p>
-                    {#todo afficher les liste des etapes#}
-                </p>
+                <ul>
+                    {% for step in recipe.steps  %}
+                    <li>{{ step.number }} : {{ step.description }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-md-4">
                 <h2>Ingrédients</h2>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Cooking Chef{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+
+{% block header %}
+    <header class="header-top" style="background-image: url('{% block headerImage %}{% endblock %}');">
+
+        {% include 'default/_menu.html.twig' %}
+
+        <div class="overlay">
+            <div class="container">
+                <h1>{% block headerTitle %}{% endblock %}
+
+                </h1>
+            </div>
+        </div>
+
+    </header>
+{% endblock %}
+
+{% block body %}{% endblock %}
+
+<footer class="site-footer">
+    © Cooking Chef 2016
+</footer>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>
