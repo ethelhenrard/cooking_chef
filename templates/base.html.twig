@@ -10,7 +10,7 @@
 <body>
 
 {% block header %}
-    <header class="header-top" style="background-image: url('{% block headerImage %}{% endblock %}');">
+    <header class="header-top" style="background-image: url('{% block headerImage %}{{ asset('build/images/header-background-2.jpg') }}{% endblock %}');">
 
         {% include 'default/_menu.html.twig' %}
 
