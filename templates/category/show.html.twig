@@ -9,7 +9,13 @@
 {% block body %}
 
     <main class="container">
-        <h2>{{ category.recipes|length }} recettes dans la catégorie "Dessert"</h2>
+        <h2>{{ category.recipes|length }}
+            {% if ((category.recipes|length) > 1) %}
+                recettes
+            {% else %}
+                recette
+
+            {% endif %} dans la catégorie "{{ category.label }}"</h2>
 
         <section class="row recipes">
 

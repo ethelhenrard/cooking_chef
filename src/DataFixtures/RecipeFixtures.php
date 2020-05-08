@@ -47,6 +47,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $saumon->setCategory($this->getReference("cat-plat"));
         $saumon->setDifficulty($this->getReference("diff-moyen"));
         $saumon->addTag($this->getReference("tag-poisson"));
+        $saumon->addTag($this->getReference("tag-sans-glucose"));
         //$cookie->addRecipeIngredient($this->getReference("ing-saumon"));
         $manager->persist($saumon);
         $this->addReference("rec-saumon", $saumon);

@@ -14,13 +14,15 @@
                 <div class="label"><a href="#" class="like"><i class="fa fa-heart"></i></a> 42</div>
                 <div class="label"><i class="fa fa-cutlery"></i>{{ recipe.category.label}}</div>
                 <div class="label"><i class="fa fa-user"></i> Etienne H.</div>
+                <ul style="">
+                    {% for tag in recipe.tags%}
+                        <a href="{{ path('tag_show', {'slug': tag.slug}) }}">
+                        <li> #{{ tag.label }} </li> </a>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="col-md-4">
-                <ul>
-                        {% for tag in recipe.tags%}
-                    <li> {{ tag.label }}</li>
-                        {% endfor %}
-                </ul>
+
                 <ul>
                     {#todo ajouter methodes dans recipe pour retourner les temps formatés #}
                     <li>Temps de préparation : {{ recipe.preparationTimeFormatted}}</li>

@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
-use App\Entity\RecipeIngredient;
-use App\Entity\Tag;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -52,7 +50,7 @@ class RecipeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="recipe_show", methods={"GET"})
+     * @Route("/{slug}", name="recipe_show", methods={"GET"})
      */
     public function show(Recipe $recipe): Response
     {
