@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - {{ tag.label }}
+{% endblock %}
+
+{% block headerTitle %}{{ tag.label }}{% endblock %}
+
+{% block body %}
+
+    <main class="container">
+        <h2>{{ tag.recipes|length }}
+            {% if ((tag.recipes|length) > 1) %}
+                recettes
+                {% else %}
+                recette
+
+            {% endif %}#{{ tag.label }}</h2>
+
+        <section class="row recipes">
+
+            {% for recipe in tag.recipes %}
+                <div class="col-md-4">
+                    {% include 'recipe/_card.html.twig' with {'recipe': recipe} only %}
+                </div>
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+{% endblock %}
