@@ -29,7 +29,7 @@
                 <td>{{ recipe.picture }}</td>
                 <td>{{ recipe.createdAt ? recipe.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>
+                    <a href="{{ path('recipe_show', {'slug': recipe.slug}) }}">show</a>
                     <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a>
                 </td>
             </tr>
