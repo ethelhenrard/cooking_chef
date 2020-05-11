@@ -1,5 +1,7 @@
 # Si vous récupérez mon projet
 
+(supprimer éventuellement les fichiers *.lock pour éviter des problèmes par rapport à la version de PHP)
+
 Installer les dépendances :
 ```shell script
 composer install
@@ -9,6 +11,18 @@ npm install
 Créer le fichier .env.local (et modifier son contenu) :
 ```dotenv
 DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+```
+
+Créer la base de données :
+```shell script
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+```
+
+Charger les données de test :
+```shell script
+php bin/console doctrine:fixtures:load
 ```
 
 Démarrer la compilation des assets :
@@ -109,4 +123,62 @@ Relancer la commande ```npm run watch```
 Installation de Doctrine :
 ```shell script
 composer req orm
+```
+
+Créer le fichier .env.local (et modifier son contenu) :
+```dotenv
+DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+```
+
+Créer la base de données :
+```shell script
+php bin/console doctrine:database:create
+```
+
+Créer des entités :
+```shell script
+php bin/console make:entity
+```
+
+Pour l'entité gérant les utilisateurs :
+```shell script
+php bin/console make:user
+```
+
+Créer le fichier de migration et exécuter les migrations :
+```shell script
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+En cas de problème avec les migrations, supprimer les fichiers PHP dans le dossier src/Migrations :
+```shell script
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+### Fixtures
+
+Installer Doctrine Fixtures :
+```shell script
+composer require --dev orm-fixtures
+```
+
+Générer un fichier de Fixtures :
+```shell script
+php bin/console make:fixtures
+```
+
+Ecrire le code PHP pour créer des données puis :
+```shell script
+php bin/console doctrine:fixtures:load
+```
+
+## Profiler
+
+Installation du profiler pour avoir la debug bar :
+```shell script
+composer req profiler
 ```

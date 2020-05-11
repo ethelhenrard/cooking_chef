@@ -74,11 +74,19 @@ class StepFixtures extends Fixture implements DependentFixtureInterface
         $salmon[$i]->setRecipe($this->getReference("rec-saumon"));
         $manager->persist($salmon[$i]);
 
-        $pancake = ["Melanger les oeufs avec la farine", "Ajouter les pepites de chocolat"];
+        $pancakes = ["Melanger les oeufs avec la farine", "Ajouter les pepites de chocolat"];
         $i=1;
+        foreach ($pancakes as $pancake){
+        $pck[$i] = new Step();
+        $pck[$i]->setNumber($i);
+        $pck[$i]->setDescription($pancake);
+        $pck[$i]->setRecipe($this->getReference("rec-pancake"));
+        $manager->persist(($pck[$i]));
+        ++$i;
+        }
 
 
-        $manager->flush();
+       $manager->flush();
     }
 
     public function getDependencies()
