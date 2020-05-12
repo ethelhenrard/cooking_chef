@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +21,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("/", name="recipe_index", methods={"GET"})
      */
+
     public function index(RecipeRepository $recipeRepository): Response
     {
         return $this->render('recipe/index.html.twig', [
@@ -29,13 +32,22 @@ class RecipeController extends AbstractController
     /**
      * @Route("/new", name="recipe_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    // injection de dependance/service en rajoutant parametre FileUploader
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form['pictureFile']->getData();
+
+            if ($pictureFile) {
+                $pictureFilename = $fileUploader->upload($pictureFile);
+                $recipe->setPicture($pictureFilename);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recipe);
             $entityManager->flush();
