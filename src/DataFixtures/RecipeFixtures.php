@@ -23,6 +23,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $cookie->setDifficulty($this->getReference("diff-facile"));
         $cookie->addTag($this->getReference("tag-sans-glucose"));
         $cookie->addTag($this->getReference("tag-vegetarien"));
+        $cookie->setUser($this->getReference("user-pjehan"));
         $manager->persist($cookie);
         $this->addReference("rec-cookie", $cookie);
 
@@ -35,6 +36,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $pancake->setPicture("pancakes.jpg");
         $pancake->setCategory($this->getReference("cat-dessert"));
         $pancake->setDifficulty($this->getReference("diff-facile"));
+        $pancake->setUser($this->getReference("user-jdupont"));
         $manager->persist($pancake);
         $this->addReference("rec-pancake", $pancake);
 
@@ -48,6 +50,7 @@ class RecipeFixtures extends Fixture implements DependentFixtureInterface
         $saumon->setDifficulty($this->getReference("diff-moyen"));
         $saumon->addTag($this->getReference("tag-poisson"));
         $saumon->addTag($this->getReference("tag-sans-glucose"));
+        $saumon->setUser($this->getReference("user-jdupont"));
         $manager->persist($saumon);
         $this->addReference("rec-saumon", $saumon);
 
