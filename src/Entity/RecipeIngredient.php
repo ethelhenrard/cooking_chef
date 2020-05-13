@@ -90,4 +90,12 @@ class RecipeIngredient
 
         return $this;
     }
+    public function __toString()
+    {
+        $title = $this->getIngredient()->getLabel() . " " . $this->getQuantity();
+        if ($this->getUnit() !== null) {
+            $title .= " " . $this->getUnit()->getLabel();
+        }
+        return $title;
+    }
 }

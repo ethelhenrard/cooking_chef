@@ -41,7 +41,7 @@ class Recipe
      * @Assert\Positive
      */
     private $nbPersonne;
-
+//j'aurais du mettre nbPersons
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -428,7 +428,10 @@ class Recipe
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
 
 

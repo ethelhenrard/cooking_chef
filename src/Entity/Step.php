@@ -72,4 +72,9 @@ class Step
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getRecipe() . " #" . $this->getNumber();
+    }
 }

@@ -1,0 +1,44 @@
+#easy_admin:
+  #entities:
+    # List the entity class name you want to manage
+   # - App\Entity\Recipe
+   # - App\Entity\Category
+   # - App\Entity\Difficulty
+   # - App\Entity\Tag
+   # - App\Entity\Unit
+   # - App\Entity\Ingredient
+   # - App\Entity\Photo
+   # - App\Entity\Step
+   # - App\Entity\User
+
+easy_admin:
+  entities:
+    # List the entity class name you want to manage
+    Category:
+      class: App\Entity\Category
+      form:
+        fields:
+          - 'label'
+      edit:
+        fields:
+          - 'slug'
+    Recipe:
+      class: App\Entity\Recipe
+      image_base_path: '%uploads_url%'
+      list:
+        fields:
+          - 'title'
+          - {property: 'picture', type: 'image'}
+      form:
+        fields:
+          - 'title'
+          - 'preparationTime'
+          - 'bakingTime'
+          - 'nbPersonne'
+          - 'picture'
+          - 'difficulty'
+          - 'category'
+          - 'tags'
+          - 'recipeIngredients'
+          - { property: 'picture', type: 'file_upload', type_options: { upload_dir: '%uploads_directory%', download_path: '%uploads_url%' } }
+          - 'steps'

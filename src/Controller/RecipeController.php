@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +30,10 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    //il faut etre authentifier pour acceder au new
     /**
      * @Route("/new", name="recipe_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     // injection de dependance/service en rajoutant parametre FileUploader
     public function new(Request $request, FileUploader $fileUploader): Response
@@ -80,6 +83,11 @@ class RecipeController extends AbstractController
      */
     public function edit(Request $request, Recipe $recipe): Response
     {
+        //verifier si l'utilisateur connecté est admin ou si c'est lui qui a créé la recette
+
+        //if (!$this->isGranted("ROLE_ADMIN") && this->$this->getUser() !== $recipe->getUser()){
+
+        //}
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
