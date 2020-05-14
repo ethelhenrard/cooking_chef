@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
- * @ORM\HasLifecycleCallbacks()
+ * <@ORM\HasLifecycleCallbacks()>
  */
 class Recipe
 {
@@ -431,7 +431,10 @@ class Recipe
     public function __toString()
     {
         return $this->getTitle();
+
     }
+
+
 
 
 

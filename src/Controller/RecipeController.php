@@ -31,6 +31,7 @@ class RecipeController extends AbstractController
     }
 
     //il faut etre authentifier pour acceder au new
+    //ou possible de mettre $this->>deniedAccessGranteddans methode
     /**
      * @Route("/new", name="recipe_new", methods={"GET","POST"})
      * @IsGranted("ROLE_USER")
@@ -43,15 +44,16 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $pictureFile */
             $pictureFile = $form['pictureFile']->getData();
-
             if ($pictureFile) {
                 $pictureFilename = $fileUploader->upload($pictureFile);
                 $recipe->setPicture($pictureFilename);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
+            $recipe->setUser($this->getUser()); // Associer la recette à l'utilisateur connecté
             $entityManager->persist($recipe);
             $entityManager->flush();
 
@@ -80,14 +82,16 @@ class RecipeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="recipe_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
      */
     public function edit(Request $request, Recipe $recipe): Response
     {
         //verifier si l'utilisateur connecté est admin ou si c'est lui qui a créé la recette
 
-        //if (!$this->isGranted("ROLE_ADMIN") && this->$this->getUser() !== $recipe->getUser()){
+        if (!$this->isGranted("ROLE_ADMIN") && $this->getUser() !== $recipe->getUser()) {
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit de modifier cette recette");
+        }
 
-        //}
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
@@ -105,9 +109,15 @@ class RecipeController extends AbstractController
 
     /**
      * @Route("/{id}", name="recipe_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
      */
     public function delete(Request $request, Recipe $recipe): Response
     {
+        // Vérifier si l'utilisateur connecté est admin ou si c'est lui qui a créé la recette
+        if (!$this->isGranted("ROLE_ADMIN") && $this->getUser() !== $recipe->getUser()) {
+            throw $this->createAccessDeniedException("Vous n'avez pas le droit de supprimer cette recette");
+        }
+
         if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($recipe);

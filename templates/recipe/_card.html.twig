@@ -1,6 +1,6 @@
 <article>
 	<a href="{{ path('recipe_show', {'slug': recipe.slug}) }}">
-		<img src="{{ asset('uploads/' ~ recipe.picture) }}" alt="{{ recipe.title }}" class="img-responsive">
+		<img src="{{ asset('uploads/' ~ recipe.picture) }}" alt="{{ recipe.title}}" class="img-responsive">
 	</a>
 	<h2><a href="{{ path('recipe_show', {'slug': recipe.slug}) }}">{{ recipe.title }}</a></h2>
 	<footer>
