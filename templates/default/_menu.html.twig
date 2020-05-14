@@ -5,6 +5,14 @@
 	<ul>
 		<li><a href="{{ path('recipe_new') }}"><i class="fa fa-plus-circle"></i> Ajouter une recette</a></li>
 		<li><a href="#"><i class="fa fa-cutlery"></i> Recettes</a></li>
+		{% if app.user %}
+			<li>
+				<a href="{{ path('recipe_new') }}">
+					<i class="fa fa-plus-circle"></i>
+					Ajouter une recette
+				</a>
+			</li>
+		{% endif %}
 		<li><a href="#"><i class="fa fa-video-camera"></i> Vidéos</a></li>
 		{% if app.user %}
 			{% if is_granted('ROLE_ADMIN') %}
