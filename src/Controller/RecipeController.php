@@ -44,9 +44,9 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             /** @var UploadedFile $pictureFile */
             $pictureFile = $form['pictureFile']->getData();
+
             if ($pictureFile) {
                 $pictureFilename = $fileUploader->upload($pictureFile);
                 $recipe->setPicture($pictureFilename);
